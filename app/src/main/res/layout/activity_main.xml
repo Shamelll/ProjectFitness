@@ -106,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="15\nRemaining"
+                            android:text="15g\nRemaining"
                             android:textSize="12sp"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"/>
@@ -145,7 +145,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="31\nRemaining"
+                            android:text="31g\nRemaining"
                             android:textSize="12sp"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"/>
@@ -183,7 +183,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="6\nRemaining"
+                            android:text="6g\nRemaining"
                             android:textSize="12sp"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"/>
@@ -257,7 +257,7 @@
                         android:id="@+id/exerciseTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 cals burned"
+                        android:text="Exercise tab"
                         android:textSize="18sp"/>
 
                     <Button
