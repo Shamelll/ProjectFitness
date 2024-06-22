@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         Button exerciseButton = findViewById(R.id.exerciseButton);
         Button weightButton = findViewById(R.id.weightButton);
         Button logFoodButton = findViewById(R.id.logFoodButton);
+        Button changeCalIntakeButton = findViewById(R.id.ChangeIntakeButton);
 
         TextView textCalories = findViewById(R.id.textCalories);
         TextView textProtein = findViewById(R.id.textProtein);
@@ -59,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
         logFoodButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LogFoodActivity.class);
+            startActivity(intent);
+        });
+
+        changeCalIntakeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ChangeCalorieGoalActivity.class);
             startActivity(intent);
         });
     }

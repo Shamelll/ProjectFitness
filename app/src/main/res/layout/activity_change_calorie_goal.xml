@@ -31,7 +31,7 @@
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add calories manually"
+            android:text="Change daily intake goal"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:gravity="center"/>
 
         <EditText
-            android:id="@+id/editTextCalories"
+            android:id="@+id/editDailyCalories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Calories"
@@ -53,11 +53,11 @@
             android:inputType="number"/>
 
         <EditText
-            android:id="@+id/editTextCarbs"
+            android:id="@+id/editDailyCarbs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Carbs (g)"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCalories"
+            app:layout_constraintTop_toBottomOf="@+id/editDailyCalories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -66,11 +66,11 @@
             android:inputType="number"/>
 
         <EditText
-            android:id="@+id/editTextProtein"
+            android:id="@+id/editDailyProtein"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Protein (g)"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCarbs"
+            app:layout_constraintTop_toBottomOf="@+id/editDailyCarbs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -79,11 +79,11 @@
             android:inputType="number"/>
 
         <EditText
-            android:id="@+id/editTextFats"
+            android:id="@+id/editDailyFats"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Fats (g)"
-            app:layout_constraintTop_toBottomOf="@+id/editTextProtein"
+            app:layout_constraintTop_toBottomOf="@+id/editDailyProtein"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -92,11 +92,11 @@
             android:inputType="number"/>
 
         <Button
-            android:id="@+id/buttonConfirm"
+            android:id="@+id/buttonSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Confirm"
-            app:layout_constraintTop_toBottomOf="@+id/editTextFats"
+            app:layout_constraintTop_toBottomOf="@+id/editDailyFats"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -105,31 +105,6 @@
             android:background="@android:color/darker_gray"
             android:textColor="@android:color/white"/>
 
-        <TextView
-            android:id="@+id/textViewOr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Or"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/buttonConfirm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/buttonScanBarcode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Scan a barcode"
-            app:layout_constraintTop_toBottomOf="@+id/textViewOr"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@android:color/darker_gray"
-            android:textColor="@android:color/white"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
