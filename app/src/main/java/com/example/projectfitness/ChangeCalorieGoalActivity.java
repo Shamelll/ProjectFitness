@@ -1,5 +1,6 @@
 package com.example.projectfitness;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,26 +29,53 @@ public class ChangeCalorieGoalActivity extends AppCompatActivity {
         editDailyFats = findViewById(R.id.editDailyFats);
         buttonSave = findViewById(R.id.buttonSave);
 
+        // Load saved values
+        loadSavedValues();
+
         buttonSave.setOnClickListener(v -> {
             // Retrieve input values
-            String dailyCalories = editDailyCalories.getText().toString();
-            String dailyCarbs = editDailyCarbs.getText().toString();
-            String dailyProtein = editDailyProtein.getText().toString();
-            String dailyFats = editDailyFats.getText().toString();
+            String dailyCaloriesStr = editDailyCalories.getText().toString();
+            String dailyCarbsStr = editDailyCarbs.getText().toString();
+            String dailyProteinStr = editDailyProtein.getText().toString();
+            String dailyFatsStr = editDailyFats.getText().toString();
 
-            // Validate inputs (they are not empty)
-            if (dailyCalories.isEmpty() || dailyCarbs.isEmpty() || dailyProtein.isEmpty() || dailyFats.isEmpty()) {
+            // Validate inputs (example: ensure they are not empty)
+            if (dailyCaloriesStr.isEmpty() || dailyCarbsStr.isEmpty() || dailyProteinStr.isEmpty() || dailyFatsStr.isEmpty()) {
                 Toast.makeText(ChangeCalorieGoalActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
-                // TODO: SAVE DATA AND SEND IT TO PROGRESS BARS IN MAIN SCREEN
+                // Parse to integers
+                int dailyCalories = Integer.parseInt(dailyCaloriesStr);
+                int dailyCarbs = Integer.parseInt(dailyCarbsStr);
+                int dailyProtein = Integer.parseInt(dailyProteinStr);
+                int dailyFats = Integer.parseInt(dailyFatsStr);
 
+                // Save the data using SharedPreferences
+                SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("dailyCalories", dailyCalories);
+                editor.putInt("dailyCarbs", dailyCarbs);
+                editor.putInt("dailyProtein", dailyProtein);
+                editor.putInt("dailyFats", dailyFats);
+                editor.apply();
 
-                // For demonstration, just showing a Toast
                 Toast.makeText(ChangeCalorieGoalActivity.this, "Goals saved!", Toast.LENGTH_SHORT).show();
 
                 // Finish the activity and go back to the main screen
                 finish();
             }
         });
+    }
+
+    private void loadSavedValues() {
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        int dailyCalories = preferences.getInt("dailyCalories", 0);
+        int dailyCarbs = preferences.getInt("dailyCarbs", 0);
+        int dailyProtein = preferences.getInt("dailyProtein", 0);
+        int dailyFats = preferences.getInt("dailyFats", 0);
+
+        editDailyCalories.setText(String.valueOf(dailyCalories));
+        editDailyCarbs.setText(String.valueOf(dailyCarbs));
+        editDailyProtein.setText(String.valueOf(dailyProtein));
+        editDailyFats.setText(String.valueOf(dailyFats));
     }
 }
