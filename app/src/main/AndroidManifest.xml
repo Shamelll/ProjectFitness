@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,8 +29,18 @@
         <activity android:name=".StepsActivity" />
         <activity android:name=".ExerciseActivity" />
         <activity android:name=".WeightActivity" />
-        <activity android:name=".LogFoodActivity" />
+        <activity
+            android:name=".LogFoodActivity"
+            android:label="Log Food"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
         <activity android:name=".ChangeCalorieGoalActivity" />
+        <activity android:name=".BarcodeScannerActivity"/>
+        <activity
+            android:name=".ScannedFoodActivity"
+            android:label="Scanned Food "
+            android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>

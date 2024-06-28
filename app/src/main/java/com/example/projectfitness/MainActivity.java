@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         textCarbs = findViewById(R.id.textCarbs);
         textFats = findViewById(R.id.textFats);
 
+        //deleteAllData();
 
         stepsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StepsActivity.class);

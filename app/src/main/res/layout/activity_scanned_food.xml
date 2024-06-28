@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScannedFoodActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="Scanned Food"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/editTextFoodName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Food Name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:id="@+id/textViewCaloriesLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Calories:"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFoodName"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewCalories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFoodName"
+                app:layout_constraintStart_toEndOf="@id/textViewCaloriesLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:id="@+id/textViewCarbsLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Carbs:"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewCarbs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCalories"
+                app:layout_constraintStart_toEndOf="@id/textViewCarbsLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:id="@+id/textViewProteinLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Protein:"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCarbsLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewProtein"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCarbs"
+                app:layout_constraintStart_toEndOf="@id/textViewProteinLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:id="@+id/textViewFatsLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Fats:"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProteinLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewFats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProtein"
+                app:layout_constraintStart_toEndOf="@id/textViewFatsLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="32dp"/>
+
+            <Button
+                android:id="@+id/buttonConfirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                app:layout_constraintTop_toBottomOf="@id/textViewFatsLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@android:color/darker_gray"
+                android:textColor="@android:color/white"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
