@@ -24,7 +24,7 @@
             android:id="@+id/foodDetailsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calories: XX, Fat: XX, Carbs: XX, Protein: XX"
+            android:text="XXXg,Calories: XX, Fat: XX, Carbs: XX, Protein: XX"
             android:textSize="12sp"/>
     </LinearLayout>
 

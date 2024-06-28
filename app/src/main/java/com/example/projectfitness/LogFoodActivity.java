@@ -29,6 +29,7 @@ import javax.net.ssl.SSLContext;
 
 public class LogFoodActivity extends AppCompatActivity {
 
+    // UI elements
     private EditText editTextFoodName, editTextCalories, editTextCarbs, editTextProtein, editTextFats;
     private Button buttonConfirm, buttonScanBarcode;
     private LinearLayout foodLogContainer;
@@ -38,10 +39,12 @@ public class LogFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_food);
 
+        // Set up toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish()); // This will close the activity and go back to the previous one
 
+        // Initialize UI elements
         editTextFoodName = findViewById(R.id.editTextFoodName);
         editTextCalories = findViewById(R.id.editTextCalories);
         editTextCarbs = findViewById(R.id.editTextCarbs);
@@ -51,6 +54,7 @@ public class LogFoodActivity extends AppCompatActivity {
         buttonScanBarcode = findViewById(R.id.buttonScanBarcode);
         foodLogContainer = findViewById(R.id.foodLogContainer);
 
+        // Click listener for the confirm button
         buttonConfirm.setOnClickListener(v -> {
             // Retrieve input values
             String foodName = editTextFoodName.getText().toString();
@@ -58,6 +62,7 @@ public class LogFoodActivity extends AppCompatActivity {
             String carbs = editTextCarbs.getText().toString();
             String protein = editTextProtein.getText().toString();
             String fats = editTextFats.getText().toString();
+            String amount = "100"; // Default amount is 100g
             String id = String.valueOf(System.currentTimeMillis());
 
             // Validate inputs (example: ensure they are not empty)
@@ -65,8 +70,8 @@ public class LogFoodActivity extends AppCompatActivity {
                 Toast.makeText(LogFoodActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
                 // Add food log to the layout and save it
-                addFoodLog(foodName, calories, carbs, protein, fats, id);
-                saveFoodLog(foodName, calories, carbs, protein, fats, id);
+                addFoodLog(foodName, calories, carbs, protein, fats, amount, id);
+                saveFoodLog(foodName, calories, carbs, protein, fats, amount, id);
 
                 // Update progress bars and save the data using SharedPreferences
                 updateProgressBars(Integer.parseInt(calories), Integer.parseInt(carbs), Integer.parseInt(protein), Integer.parseInt(fats), false);
@@ -83,6 +88,7 @@ public class LogFoodActivity extends AppCompatActivity {
             }
         });
 
+        // Click listener for the scan barcode button
         buttonScanBarcode.setOnClickListener(v -> {
             // Implement barcode scanning functionality
             Intent intent = new Intent(LogFoodActivity.this, BarcodeScannerActivity.class);
@@ -97,25 +103,32 @@ public class LogFoodActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Handle barcode scan result
             String barcode = data.getStringExtra("barcode");
             new FetchFoodDataTask().execute(barcode);
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
+            // Handle scanned food result
             String foodName = data.getStringExtra("foodName");
             int calories = data.getIntExtra("calories", 0);
             int carbs = data.getIntExtra("carbs", 0);
             int protein = data.getIntExtra("protein", 0);
             int fats = data.getIntExtra("fats", 0);
+            int amount = data.getIntExtra("amount", 100);
             String id = String.valueOf(System.currentTimeMillis());
 
-            addFoodLog(foodName, String.valueOf(calories), String.valueOf(carbs), String.valueOf(protein), String.valueOf(fats), id);
-            saveFoodLog(foodName, String.valueOf(calories), String.valueOf(carbs), String.valueOf(protein), String.valueOf(fats), id);
+            // Add and save the food log
+            addFoodLog(foodName, String.valueOf(calories), String.valueOf(carbs), String.valueOf(protein), String.valueOf(fats), String.valueOf(amount), id);
+            saveFoodLog(foodName, String.valueOf(calories), String.valueOf(carbs), String.valueOf(protein), String.valueOf(fats), String.valueOf(amount), id);
             updateProgressBars(calories, carbs, protein, fats, false);
+
+            Toast.makeText(LogFoodActivity.this, "Food logged!", Toast.LENGTH_SHORT).show();
 
             // Notify MainActivity to refresh the progress bars
             setResult(RESULT_OK);
         }
     }
 
+    // AsyncTask to fetch food data from the Open Food Facts API
     private class FetchFoodDataTask extends AsyncTask<String, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(String... params) {
@@ -151,6 +164,7 @@ public class LogFoodActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject result) {
             if (result != null) {
                 try {
+                    // Parse the JSON result
                     JSONObject product = result.getJSONObject("product");
                     String foodName = product.getString("product_name");
                     int calories = product.getJSONObject("nutriments").getInt("energy-kcal_100g");
@@ -177,16 +191,19 @@ public class LogFoodActivity extends AppCompatActivity {
         }
     }
 
-    private void addFoodLog(String foodName, String calories, String carbs, String protein, String fats, String id) {
+    // Add a food log entry to the UI
+    private void addFoodLog(String foodName, String calories, String carbs, String protein, String fats, String amount, String id) {
         View foodLogView = getLayoutInflater().inflate(R.layout.food_log_item, foodLogContainer, false);
         TextView foodNameTextView = foodLogView.findViewById(R.id.foodNameTextView);
         TextView foodDetailsTextView = foodLogView.findViewById(R.id.foodDetailsTextView);
         Button deleteFoodLogButton = foodLogView.findViewById(R.id.deleteFoodLogButton);
 
+        // Set the food details
         foodNameTextView.setText(foodName);
-        foodDetailsTextView.setText(String.format("Calories: %s, Fat: %s, Carbs: %s, Protein: %s", calories, fats, carbs, protein));
+        foodDetailsTextView.setText(String.format("%sg, Calories: %sg, Fat: %sg, Carbs: %sg, Protein: %sg", amount, calories, fats, carbs, protein));
         foodLogView.setTag(id);
 
+        // Click listener for the delete button
         deleteFoodLogButton.setOnClickListener(v -> {
             // Show confirmation dialog
             new AlertDialog.Builder(this)
@@ -204,11 +221,11 @@ public class LogFoodActivity extends AppCompatActivity {
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         });
-
         foodLogContainer.addView(foodLogView);
     }
 
-    private void saveFoodLog(String foodName, String calories, String carbs, String protein, String fats, String id) {
+    // Save a food log entry to SharedPreferences
+    private void saveFoodLog(String foodName, String calories, String carbs, String protein, String fats, String amount, String id) {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
@@ -222,6 +239,7 @@ public class LogFoodActivity extends AppCompatActivity {
             foodLog.put("carbs", carbs);
             foodLog.put("protein", protein);
             foodLog.put("fats", fats);
+            foodLog.put("amount", amount);
 
             foodLogsArray.put(foodLog);
             editor.putString("foodLogs", foodLogsArray.toString());
@@ -231,6 +249,7 @@ public class LogFoodActivity extends AppCompatActivity {
         }
     }
 
+    // Load existing food logs from SharedPreferences
     private void loadFoodLogs() {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         String foodLogs = preferences.getString("foodLogs", "[]");
@@ -244,14 +263,17 @@ public class LogFoodActivity extends AppCompatActivity {
                 String carbs = foodLog.getString("carbs");
                 String protein = foodLog.getString("protein");
                 String fats = foodLog.getString("fats");
+                String amount = foodLog.getString("amount");
 
-                addFoodLog(foodName, calories, carbs, protein, fats, id);
+                // Add each food log to the UI
+                addFoodLog(foodName, calories, carbs, protein, fats, amount, id);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    // Remove a food log entry from SharedPreferences
     private void removeFoodLog(String id) {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -273,6 +295,7 @@ public class LogFoodActivity extends AppCompatActivity {
         }
     }
 
+    // Update the progress bars in the main activity
     private void updateProgressBars(int calories, int carbs, int protein, int fats, boolean isDeletion) {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
