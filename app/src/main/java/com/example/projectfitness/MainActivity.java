@@ -7,10 +7,17 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,15 +48,13 @@ public class MainActivity extends AppCompatActivity {
         textCarbs = findViewById(R.id.textCarbs);
         textFats = findViewById(R.id.textFats);
 
-        //deleteAllData();
-
         stepsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StepsActivity.class);
             startActivity(intent);
         });
 
         exerciseButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
+            Intent intent = new Intent(MainActivity.this, ExerciseListActivity.class);
             startActivity(intent);
         });
 
@@ -67,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LogFoodActivity.class);
             startActivityForResult(intent, REQUEST_CODE_LOG_FOOD);
         });
-
-
-
 
         // Load and display the saved values
         loadAndDisplayValues();
@@ -157,4 +159,4 @@ public class MainActivity extends AppCompatActivity {
         textCarbs.setText("0g/0g\nRemaining");
         textFats.setText("0g/0g\nRemaining");
     }
-}
+}e

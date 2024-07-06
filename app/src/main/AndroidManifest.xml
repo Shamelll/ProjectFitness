@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StepsActivity" />
-        <activity android:name=".ExerciseActivity" />
+        <activity android:name=".ExerciseListActivity"/>
+        <activity android:name=".ExerciseLoggingActivity"/>
         <activity android:name=".WeightActivity" />
         <activity
             android:name=".LogFoodActivity"
