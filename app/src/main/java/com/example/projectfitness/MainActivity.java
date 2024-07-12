@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -48,13 +49,15 @@ public class MainActivity extends AppCompatActivity {
         textCarbs = findViewById(R.id.textCarbs);
         textFats = findViewById(R.id.textFats);
 
+        //deleteAllData();
+
         stepsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StepsActivity.class);
             startActivity(intent);
         });
 
         exerciseButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ExerciseListActivity.class);
+            Intent intent = new Intent(MainActivity.this, ExerciseRoutineActivity.class);
             startActivity(intent);
         });
 
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // FOR DEBUGGING
     private void deleteAllData() {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -159,4 +163,4 @@ public class MainActivity extends AppCompatActivity {
         textCarbs.setText("0g/0g\nRemaining");
         textFats.setText("0g/0g\nRemaining");
     }
-}e
+}

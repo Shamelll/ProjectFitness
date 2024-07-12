@@ -31,84 +31,91 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Food Name"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/editTextFoodName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Food Name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginEnd="32dp"
+                android:hint="Enter food name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textViewAmountLabel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount (g):"
-                app:layout_constraintTop_toBottomOf="@+id/editTextFoodName"
+                android:text="Amount (g)"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/editTextFoodName"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginStart="32dp"/>
 
             <EditText
                 android:id="@+id/editTextAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:hint="Enter amount in grams"
                 android:inputType="number"
-                app:layout_constraintTop_toBottomOf="@+id/editTextFoodName"
-                app:layout_constraintStart_toEndOf="@id/textViewAmountLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewAmountLabel"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"/>
 
             <TextView
                 android:id="@+id/textViewCalories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/editTextAmount"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextAmount" />
 
             <TextView
                 android:id="@+id/textViewCarbs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCalories"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCalories" />
 
             <TextView
                 android:id="@+id/textViewProtein"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCarbs"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCarbs" />
 
             <TextView
                 android:id="@+id/textViewFats"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/textViewProtein"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProtein" />
 
             <Button
                 android:id="@+id/buttonConfirm"
@@ -123,7 +130,6 @@
                 android:layout_marginEnd="32dp"
                 android:background="@android:color/darker_gray"
                 android:textColor="@android:color/white"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

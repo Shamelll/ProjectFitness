@@ -29,13 +29,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="0dp">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add calories manually"
+                android:text="Add Calories Manually"
                 android:textSize="24sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,66 +43,116 @@
                 android:layout_marginTop="16dp"
                 android:gravity="center"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Name"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"/>
+
             <EditText
                 android:id="@+id/editTextFoodName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Food Name"
+                android:hint="Enter food name"
                 app:layout_constraintTop_toBottomOf="@id/textViewTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/editTextFoodName"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"/>
 
             <EditText
                 android:id="@+id/editTextCalories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Calories"
+                android:hint="Enter calories"
                 app:layout_constraintTop_toBottomOf="@id/editTextFoodName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:inputType="number"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbs (g)"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/editTextCalories"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"/>
 
             <EditText
                 android:id="@+id/editTextCarbs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Carbs (g)"
+                android:hint="Enter carbs in grams"
                 app:layout_constraintTop_toBottomOf="@id/editTextCalories"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:inputType="number"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protein (g)"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/editTextCarbs"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"/>
 
             <EditText
                 android:id="@+id/editTextProtein"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Protein (g)"
+                android:hint="Enter protein in grams"
                 app:layout_constraintTop_toBottomOf="@id/editTextCarbs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:inputType="number"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fats (g)"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/editTextProtein"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"/>
 
             <EditText
                 android:id="@+id/editTextFats"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Fats (g)"
+                android:hint="Enter fats in grams"
                 app:layout_constraintTop_toBottomOf="@id/editTextProtein"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:inputType="number"/>
@@ -115,7 +165,7 @@
                 app:layout_constraintTop_toBottomOf="@id/editTextFats"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:background="@android:color/darker_gray"
@@ -137,7 +187,7 @@
                 android:id="@+id/buttonScanBarcode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Scan a barcode"
+                android:text="Scan a Barcode"
                 app:layout_constraintTop_toBottomOf="@id/textViewOr"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +205,6 @@
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/buttonScanBarcode"
                 android:layout_marginTop="16dp"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

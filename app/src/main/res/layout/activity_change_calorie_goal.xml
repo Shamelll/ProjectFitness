@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogFoodActivity">
+    tools:context=".ChangeCalorieGoalActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Project Fitness"
+        app:title="Change Calorie Goal"
         app:titleTextColor="@android:color/white"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change daily intake goal"
+            android:text="Change Daily Intake Goal"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,56 +39,96 @@
             android:layout_marginTop="16dp"
             android:gravity="center"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"/>
+
         <EditText
             android:id="@+id/editDailyCalories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Calories"
+            android:hint="Enter daily calories goal"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginTop="40dp"
             android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carbs (g)"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/editDailyCalories"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/editDailyCarbs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Carbs (g)"
+            android:hint="Enter daily carbs goal"
             app:layout_constraintTop_toBottomOf="@+id/editDailyCalories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginTop="40dp"
             android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Protein (g)"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/editDailyCarbs"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/editDailyProtein"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Protein (g)"
+            android:hint="Enter daily protein goal"
             app:layout_constraintTop_toBottomOf="@+id/editDailyCarbs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginTop="40dp"
             android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fats (g)"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/editDailyProtein"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/editDailyFats"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Fats (g)"
+            android:hint="Enter daily fats goal"
             app:layout_constraintTop_toBottomOf="@+id/editDailyProtein"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginTop="40dp"
             android:inputType="number"/>
 
         <Button
@@ -104,8 +144,6 @@
             android:layout_marginEnd="32dp"
             android:background="@android:color/darker_gray"
             android:textColor="@android:color/white"/>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

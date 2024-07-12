@@ -42,6 +42,7 @@
             android:label="Scanned Food "
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".ExerciseRoutineActivity" />
     </application>
 
 </manifest>
