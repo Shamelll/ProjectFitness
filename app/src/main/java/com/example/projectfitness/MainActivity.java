@@ -19,15 +19,28 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
+
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final int REQUEST_CODE_CHANGE_GOAL = 1;
     private static final int REQUEST_CODE_LOG_FOOD = 2;
+    private static final int REQUEST_CODE_CHANGE_STEPS = 3;
+
 
     private ProgressBar progressCalories, progressProtein, progressCarbs, progressFats;
-    private TextView textCalories, textProtein, textCarbs, textFats;
+    private TextView textCalories, textProtein, textCarbs, textFats, stepsGoal, exerciseTime, exerciseCalories;
+    private BroadcastReceiver routineDeletedReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +61,15 @@ public class MainActivity extends AppCompatActivity {
         textProtein = findViewById(R.id.textProtein);
         textCarbs = findViewById(R.id.textCarbs);
         textFats = findViewById(R.id.textFats);
+        stepsGoal = findViewById(R.id.stepsGoal);
+        exerciseTime = findViewById(R.id.exerciseTime);
+        exerciseCalories = findViewById(R.id.exerciseCalories);
 
         //deleteAllData();
 
         stepsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StepsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_CHANGE_STEPS);
         });
 
         exerciseButton.setOnClickListener(v -> {
@@ -78,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Load and display the saved values
         loadAndDisplayValues();
+
+        // Register the receiver
+        registerRoutineDeletedReceiver();
     }
 
     @Override
@@ -88,14 +107,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receiver
+        unregisterReceiver(routineDeletedReceiver);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CODE_CHANGE_GOAL || requestCode == REQUEST_CODE_LOG_FOOD) {
+            if (requestCode == REQUEST_CODE_CHANGE_GOAL || requestCode == REQUEST_CODE_LOG_FOOD || requestCode == 3) {
                 // Reload and display the saved values
                 loadAndDisplayValues();
             }
         }
+    }
+
+    private void registerRoutineDeletedReceiver() {
+        routineDeletedReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Update the values when a routine is deleted
+                loadAndDisplayValues();
+            }
+        };
+        IntentFilter filter = new IntentFilter("com.example.projectfitness.ROUTINE_DELETED");
+        registerReceiver(routineDeletedReceiver, filter);
     }
 
     public void loadAndDisplayValues() {
@@ -109,9 +147,13 @@ public class MainActivity extends AppCompatActivity {
         int currentCarbs = preferences.getInt("currentCarbs", 0);
         int currentProtein = preferences.getInt("currentProtein", 0);
         int currentFats = preferences.getInt("currentFats", 0);
+        int stepsGoalValue = preferences.getInt("stepsGoal", 0);
 
-        Log.d(TAG, "Loaded values: dailyCalories=" + dailyCalories + ", dailyCarbs=" + dailyCarbs + ", dailyProtein=" + dailyProtein + ", dailyFats=" + dailyFats);
-        Log.d(TAG, "Current values: currentCalories=" + currentCalories + ", currentCarbs=" + currentCarbs + ", currentProtein=" + currentProtein + ", currentFats=" + currentFats);
+        int totalWorkoutTime = preferences.getInt("totalWorkoutTime", 0);
+        int totalCaloriesBurned = preferences.getInt("totalCaloriesBurned", 0);
+
+        //Log.d(TAG, "Loaded values: dailyCalories=" + dailyCalories + ", dailyCarbs=" + dailyCarbs + ", dailyProtein=" + dailyProtein + ", dailyFats=" + dailyFats);
+        //Log.d(TAG, "Current values: currentCalories=" + currentCalories + ", currentCarbs=" + currentCarbs + ", currentProtein=" + currentProtein + ", currentFats=" + currentFats);
 
         // Update progress bars
         if (dailyCalories > 0) {
@@ -145,6 +187,42 @@ public class MainActivity extends AppCompatActivity {
         } else {
             textFats.setText("0g/0g\nRemaining");
         }
+
+        // Update steps goal
+        stepsGoal.setText(String.format("Goal: %d", stepsGoalValue));
+
+        // Display exercise stats
+        //exerciseTime.setText(String.format("Workout Time: %d mins", totalWorkoutTime));
+        //exerciseCalories.setText(String.format("Calories Burnt: %d kcal", totalCaloriesBurned));
+        calculateAndDisplayExerciseData();
+    }
+
+    private void calculateAndDisplayExerciseData() {
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        String exerciseLogs = preferences.getString("exerciseRoutines", "[]");
+        int totalWorkoutTime = 0;
+        int totalCaloriesBurnt = 0;
+
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        try {
+            JSONArray exerciseLogsArray = new JSONArray(exerciseLogs);
+            Log.d(TAG, "Loaded exercise logs: " + exerciseLogsArray.toString()); // Log loaded exercise logs
+            for (int i = 0; i < exerciseLogsArray.length(); i++) {
+                JSONObject exerciseLog = exerciseLogsArray.getJSONObject(i);
+                String logDate = exerciseLog.getString("date");
+
+                if (logDate.equals(currentDate)) {
+                    totalWorkoutTime += exerciseLog.getInt("totalTime");
+                    totalCaloriesBurnt += exerciseLog.getInt("totalCalories");
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        exerciseTime.setText(String.format("Workout Time: %d mins", totalWorkoutTime));
+        exerciseCalories.setText(String.format("Calories Burnt: %d kcal", totalCaloriesBurnt));
     }
 
     // FOR DEBUGGING
@@ -162,5 +240,7 @@ public class MainActivity extends AppCompatActivity {
         textProtein.setText("0g/0g\nRemaining");
         textCarbs.setText("0g/0g\nRemaining");
         textFats.setText("0g/0g\nRemaining");
+        exerciseTime.setText("Workout Time: 0 mins");
+        exerciseCalories.setText("Calories Burnt: 0 kcal");
     }
 }

@@ -28,7 +28,9 @@
         </activity>
         <activity android:name=".StepsActivity" />
         <activity android:name=".ExerciseListActivity"/>
-        <activity android:name=".ExerciseLoggingActivity"/>
+        <activity android:name=".ExerciseLoggingActivity"
+            android:label="Log Exercise"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".WeightActivity" />
         <activity
             android:name=".LogFoodActivity"
@@ -43,6 +45,10 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".ExerciseRoutineActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -36,6 +36,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:gravity="center"/>
 

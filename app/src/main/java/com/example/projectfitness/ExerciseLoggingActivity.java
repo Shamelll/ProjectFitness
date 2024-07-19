@@ -18,12 +18,21 @@ import org.json.JSONObject;
 
 import android.view.View;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import android.content.Intent;
+
+import java.util.UUID;
+
 public class ExerciseLoggingActivity extends AppCompatActivity {
 
     private EditText editTextExerciseName, editTextDuration, editTextCaloriesBurned, editTextSets, editTextReps;
     private Button buttonAddExercise, buttonSaveRoutine;
     private LinearLayout exercisesContainer;
     private JSONArray exercisesArray;
+    private String routineId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +100,11 @@ public class ExerciseLoggingActivity extends AppCompatActivity {
                 JSONArray routinesArray = new JSONArray(routines);
 
                 JSONObject routine = new JSONObject();
-                routine.put("date", System.currentTimeMillis());
+                if (routineId == null) {
+                    routineId = UUID.randomUUID().toString();
+                }
+                routine.put("id", routineId);
+                routine.put("date", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
                 routine.put("exercises", exercisesArray);
 
                 int totalTime = 0;
@@ -105,9 +118,27 @@ public class ExerciseLoggingActivity extends AppCompatActivity {
                 routine.put("totalCalories", totalCalories);
                 routine.put("exerciseCount", exercisesArray.length());
 
-                routinesArray.put(routine);
+                // If editing an existing routine, find and replace it
+                boolean routineExists = false;
+                for (int i = 0; i < routinesArray.length(); i++) {
+                    JSONObject existingRoutine = routinesArray.getJSONObject(i);
+                    if (existingRoutine.getString("id").equals(routineId)) {
+                        routinesArray.put(i, routine);
+                        routineExists = true;
+                        break;
+                    }
+                }
+
+                if (!routineExists) {
+                    routinesArray.put(routine);
+                }
+
                 editor.putString("exerciseRoutines", routinesArray.toString());
                 editor.apply();
+
+                // Broadcast an event indicating a routine has been saved
+                Intent intent = new Intent("com.example.projectfitness.ROUTINE_SAVED");
+                sendBroadcast(intent);
 
                 Toast.makeText(ExerciseLoggingActivity.this, "Routine saved!", Toast.LENGTH_SHORT).show();
                 finish();
@@ -115,6 +146,25 @@ public class ExerciseLoggingActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+
+        // Check if we are editing an existing routine
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("routineId")) {
+            routineId = intent.getStringExtra("routineId");
+            String routineDate = intent.getStringExtra("routineDate");
+            String routineExercises = intent.getStringExtra("routineExercises");
+
+            try {
+                JSONArray exercises = new JSONArray(routineExercises);
+                for (int i = 0; i < exercises.length(); i++) {
+                    JSONObject exercise = exercises.getJSONObject(i);
+                    exercisesArray.put(exercise);
+                    addExerciseToView(exercise);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void addExerciseToView(JSONObject exercise) throws JSONException {
@@ -133,20 +183,14 @@ public class ExerciseLoggingActivity extends AppCompatActivity {
         exerciseDetailsTextView.setText(String.format("Duration: %d mins, Calories: %d, Sets: %d, Reps: %d", duration, caloriesBurned, sets, reps));
 
         deleteExerciseButton.setOnClickListener(v -> {
-            new AlertDialog.Builder(this)
-                    .setTitle("Delete Exercise")
-                    .setMessage("Are you sure you want to delete this exercise?")
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        exercisesContainer.removeView(exerciseView);
-                        removeExerciseFromArray(exercise);
-                        Toast.makeText(this, "Exercise deleted", Toast.LENGTH_SHORT).show();
-                    })
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+            exercisesContainer.removeView(exerciseView);
+            removeExerciseFromArray(exercise);
         });
 
         exercisesContainer.addView(exerciseView);
+
+        Toast.makeText(ExerciseLoggingActivity.this, "Exercise added", Toast.LENGTH_SHORT).show();
+
     }
 
     private void removeExerciseFromArray(JSONObject exercise) {

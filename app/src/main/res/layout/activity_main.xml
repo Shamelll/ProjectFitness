@@ -30,214 +30,222 @@
             android:layout_height="wrap_content">
 
             <!-- Progress Bars Tab -->
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/progressBarsLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tab_background"
-                android:padding="16dp"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp">
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <Button
-                    android:id="@+id/ChangeIntakeButton"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentEnd="true"
-                    android:text="+"
-                    android:textSize="15sp"
-                    android:padding="0dp"/>
-
-                <!-- Large Calories Progress Bar with Text -->
-                <LinearLayout
-                    android:id="@+id/caloriesLayout"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="32dp"
-                    android:gravity="center_horizontal">
+                    android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/labelCalories"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Calories"
-                        android:textSize="22sp"
-                        android:layout_marginBottom="0dp"/>
+                    <Button
+                        android:id="@+id/ChangeIntakeButton"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:text="+"
+                        android:textSize="15sp"
+                        android:padding="0dp"/>
 
-                    <FrameLayout
-                        android:id="@+id/caloriesFrame"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp">
-                        <ProgressBar
-                            android:id="@+id/progressCalories"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:progress="70"
-                            android:rotation="0"
-                            android:progressDrawable="@drawable/circular_progress_bar"/>
-                        <TextView
-                            android:id="@+id/textCalories"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="250\nRemaining"
-                            android:textSize="18sp"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"/>
-                    </FrameLayout>
-                </LinearLayout>
-
-                <!-- Smaller Progress Bars with Text -->
-                <LinearLayout
-                    android:id="@+id/smallProgressBarsLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/caloriesLayout"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal">
-
+                    <!-- Large Calories Progress Bar with Text -->
                     <LinearLayout
+                        android:id="@+id/caloriesLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:layout_marginEnd="8dp">
-
-                        <TextView
-                            android:id="@+id/labelProtein"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Protein"
-                            android:textSize="16sp"
-                            android:layout_marginBottom="0dp"/>
-
-                        <FrameLayout
-                            android:id="@+id/proteinFrame"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp">
-                            <ProgressBar
-                                android:id="@+id/progressProtein"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:progress="50"
-                                android:rotation="0"
-                                android:progressDrawable="@drawable/circular_progress_bar"/>
-                            <TextView
-                                android:id="@+id/textProtein"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="15g\nRemaining"
-                                android:textSize="12sp"
-                                android:textAlignment="center"
-                                android:textColor="@android:color/black"/>
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:layout_marginEnd="8dp">
-
-                        <TextView
-                            android:id="@+id/labelCarbs"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Carbs"
-                            android:textSize="16sp"
-                            android:layout_marginBottom="0dp"/>
-
-                        <FrameLayout
-                            android:id="@+id/carbsFrame"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp">
-                            <ProgressBar
-                                android:id="@+id/progressCarbs"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:progress="30"
-                                android:rotation="0"
-                                android:progressDrawable="@drawable/circular_progress_bar"/>
-                            <TextView
-                                android:id="@+id/textCarbs"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="31g\nRemaining"
-                                android:textSize="12sp"
-                                android:textAlignment="center"
-                                android:textColor="@android:color/black"/>
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"
                         android:gravity="center_horizontal">
 
                         <TextView
-                            android:id="@+id/labelFats"
+                            android:id="@+id/labelCalories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fats"
-                            android:textSize="16sp"
+                            android:text="Calories"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
                             android:layout_marginBottom="0dp"/>
 
                         <FrameLayout
-                            android:id="@+id/fatsFrame"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp">
+                            android:id="@+id/caloriesFrame"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp">
                             <ProgressBar
-                                android:id="@+id/progressFats"
+                                android:id="@+id/progressCalories"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 style="?android:attr/progressBarStyleHorizontal"
-                                android:progress="20"
+                                android:progress="70"
                                 android:rotation="0"
                                 android:progressDrawable="@drawable/circular_progress_bar"/>
                             <TextView
-                                android:id="@+id/textFats"
+                                android:id="@+id/textCalories"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="6g\nRemaining"
-                                android:textSize="12sp"
+                                android:text="250\nRemaining"
+                                android:textSize="18sp"
                                 android:textAlignment="center"
                                 android:textColor="@android:color/black"/>
                         </FrameLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
 
-            <!-- Steps and Exercise Tabs -->
-            <LinearLayout
-                android:id="@+id/stepsExerciseLayout"
+                    <!-- Smaller Progress Bars with Text -->
+                    <LinearLayout
+                        android:id="@+id/smallProgressBarsLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/caloriesLayout"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_marginEnd="8dp">
+
+                            <TextView
+                                android:id="@+id/labelProtein"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Protein"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="0dp"/>
+
+                            <FrameLayout
+                                android:id="@+id/proteinFrame"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp">
+                                <ProgressBar
+                                    android:id="@+id/progressProtein"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progress="50"
+                                    android:rotation="0"
+                                    android:progressDrawable="@drawable/circular_progress_bar"/>
+                                <TextView
+                                    android:id="@+id/textProtein"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="15g\nRemaining"
+                                    android:textSize="12sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@android:color/black"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_marginEnd="8dp">
+
+                            <TextView
+                                android:id="@+id/labelCarbs"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Carbs"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="0dp"/>
+
+                            <FrameLayout
+                                android:id="@+id/carbsFrame"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp">
+                                <ProgressBar
+                                    android:id="@+id/progressCarbs"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progress="30"
+                                    android:rotation="0"
+                                    android:progressDrawable="@drawable/circular_progress_bar"/>
+                                <TextView
+                                    android:id="@+id/textCarbs"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="31g\nRemaining"
+                                    android:textSize="12sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@android:color/black"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/labelFats"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Fats"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="0dp"/>
+
+                            <FrameLayout
+                                android:id="@+id/fatsFrame"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp">
+                                <ProgressBar
+                                    android:id="@+id/progressFats"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progress="20"
+                                    android:rotation="0"
+                                    android:progressDrawable="@drawable/circular_progress_bar"/>
+                                <TextView
+                                    android:id="@+id/textFats"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="6g\nRemaining"
+                                    android:textSize="12sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@android:color/black"/>
+                            </FrameLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Steps Tab -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/stepsLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
                 app:layout_constraintTop_toBottomOf="@id/progressBarsLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Steps Tab -->
                 <RelativeLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/tab_background"
                     android:padding="16dp">
 
                     <TextView
@@ -245,6 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0 steps"
+                        android:textStyle="bold"
                         android:textSize="18sp"/>
 
                     <Button
@@ -261,7 +270,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/stepsTitle"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginTop="8dp"
                         android:text="Goal: "
                         android:textSize="18sp"/>
                     <ProgressBar
@@ -269,25 +278,36 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/stepsTitle"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="38dp"
                         android:progress="5000"
                         android:max="10000"
                         style="?android:attr/progressBarStyleHorizontal"/>
                 </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- Exercise Tab -->
+            <!-- Exercise Tab -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/exerciseLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/stepsLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
                 <RelativeLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/tab_background"
                     android:padding="16dp">
 
                     <TextView
                         android:id="@+id/exerciseTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exercise tab"
+                        android:text="Exercise"
+                        android:textStyle="bold"
                         android:textSize="18sp"/>
 
                     <Button
@@ -298,49 +318,75 @@
                         android:text="+"
                         android:textSize="15sp"
                         android:padding="0dp"/>
+
+                    <TextView
+                        android:id="@+id/exerciseTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/exerciseTitle"
+                        android:layout_marginTop="8dp"
+                        android:text="Workout Time: 0 mins"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/exerciseCalories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/exerciseTime"
+                        android:layout_marginTop="8dp"
+                        android:text="Calories Burnt: 0 kcal"
+                        android:textSize="16sp"/>
                 </RelativeLayout>
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <!-- Weight Tracking Graph -->
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/weightTrackingLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tab_background"
-                android:padding="16dp"
-                app:layout_constraintTop_toBottomOf="@id/stepsExerciseLayout"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/exerciseLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:id="@+id/weightTracking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Weight Tracking"
-                    android:textSize="18sp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="8dp"/>
-
-                <!-- Placeholder for graph -->
-                <View
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/gray"
-                    android:layout_below="@id/weightTracking"/>
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
 
-                <Button
-                    android:id="@+id/weightButton"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:text="+"
-                    android:textSize="15sp"
-                    android:padding="0dp"/>
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/weightTracking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight Tracking"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Placeholder for graph -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@color/gray"
+                        android:layout_below="@id/weightTracking"/>
+
+                    <Button
+                        android:id="@+id/weightButton"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:text="+"
+                        android:textSize="15sp"
+                        android:padding="0dp"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

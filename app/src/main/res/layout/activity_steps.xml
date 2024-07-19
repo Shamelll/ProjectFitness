@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogFoodActivity">
+    tools:context=".StepsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,53 +36,36 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:gravity="center"/>
-
 
         <EditText
             android:id="@+id/editDailySteps"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Set goal"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:inputType="number"/>
-
-        <EditText
-            android:id="@+id/editDailyCarbs"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Carbs (g)"
-            app:layout_constraintTop_toBottomOf="@+id/editDailySteps"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:inputType="number"/>
-
-
 
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Confirm"
-            app:layout_constraintTop_toBottomOf="@+id/editDailySteps"
+            app:layout_constraintTop_toBottomOf="@id/editDailySteps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/gray"
             android:textColor="@android:color/white"/>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
