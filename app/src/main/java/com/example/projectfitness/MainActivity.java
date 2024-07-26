@@ -3,7 +3,6 @@ package com.example.projectfitness;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -11,13 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.widget.LinearLayout;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.AlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,16 +22,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
 
-
-
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private LineChart weightChart;
     private static final String TAG = "MainActivity";
     private static final int REQUEST_CODE_CHANGE_GOAL = 1;
     private static final int REQUEST_CODE_LOG_FOOD = 2;
     private static final int REQUEST_CODE_CHANGE_STEPS = 3;
-
 
     private ProgressBar progressCalories, progressProtein, progressCarbs, progressFats;
     private TextView textCalories, textProtein, textCarbs, textFats, stepsGoal, exerciseTime, exerciseCalories;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        weightChart = findViewById(R.id.weightChart);
 
         progressCalories = findViewById(R.id.progressCalories);
         progressProtein = findViewById(R.id.progressProtein);
@@ -64,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         stepsGoal = findViewById(R.id.stepsGoal);
         exerciseTime = findViewById(R.id.exerciseTime);
         exerciseCalories = findViewById(R.id.exerciseCalories);
-
-        //deleteAllData();
 
         stepsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StepsActivity.class);
@@ -92,10 +94,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CODE_LOG_FOOD);
         });
 
-        // Load and display the saved values
         loadAndDisplayValues();
-
-        // Register the receiver
         registerRoutineDeletedReceiver();
     }
 
@@ -117,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CODE_CHANGE_GOAL || requestCode == REQUEST_CODE_LOG_FOOD || requestCode == 3) {
-                // Reload and display the saved values
+            if (requestCode == REQUEST_CODE_CHANGE_GOAL || requestCode == REQUEST_CODE_LOG_FOOD || requestCode == REQUEST_CODE_CHANGE_STEPS) {
                 loadAndDisplayValues();
             }
         }
@@ -128,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         routineDeletedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                // Update the values when a routine is deleted
                 loadAndDisplayValues();
             }
         };
@@ -136,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(routineDeletedReceiver, filter);
     }
 
+    // Function to load and display values
     public void loadAndDisplayValues() {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         int dailyCalories = preferences.getInt("dailyCalories", 0);
@@ -152,10 +150,14 @@ public class MainActivity extends AppCompatActivity {
         int totalWorkoutTime = preferences.getInt("totalWorkoutTime", 0);
         int totalCaloriesBurned = preferences.getInt("totalCaloriesBurned", 0);
 
-        //Log.d(TAG, "Loaded values: dailyCalories=" + dailyCalories + ", dailyCarbs=" + dailyCarbs + ", dailyProtein=" + dailyProtein + ", dailyFats=" + dailyFats);
-        //Log.d(TAG, "Current values: currentCalories=" + currentCalories + ", currentCarbs=" + currentCarbs + ", currentProtein=" + currentProtein + ", currentFats=" + currentFats);
+        updateProgressBars(dailyCalories, currentCalories, dailyCarbs, currentCarbs, dailyProtein, currentProtein, dailyFats, currentFats);
+        stepsGoal.setText(String.format("Goal: %d", stepsGoalValue));
+        calculateAndDisplayExerciseData();
+        loadWeightData();
+    }
 
-        // Update progress bars
+    // Function to update the progress bars of calories, carbs, fats and protein
+    private void updateProgressBars(int dailyCalories, int currentCalories, int dailyCarbs, int currentCarbs, int dailyProtein, int currentProtein, int dailyFats, int currentFats) {
         if (dailyCalories > 0) {
             progressCalories.setMax(dailyCalories);
             progressCalories.setProgress(currentCalories);
@@ -187,31 +189,29 @@ public class MainActivity extends AppCompatActivity {
         } else {
             textFats.setText("0g/0g\nRemaining");
         }
-
-        // Update steps goal
-        stepsGoal.setText(String.format("Goal: %d", stepsGoalValue));
-
-        // Display exercise stats
-        //exerciseTime.setText(String.format("Workout Time: %d mins", totalWorkoutTime));
-        //exerciseCalories.setText(String.format("Calories Burnt: %d kcal", totalCaloriesBurned));
-        calculateAndDisplayExerciseData();
     }
 
     private void calculateAndDisplayExerciseData() {
+        // Retrieve exercise logs
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         String exerciseLogs = preferences.getString("exerciseRoutines", "[]");
+
+        // Initialize the total workout time and total calories burnt
         int totalWorkoutTime = 0;
         int totalCaloriesBurnt = 0;
 
+        // Get the current date in the format "yyyy-MM-dd"
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
         try {
+            // Parse the stored exercise logs from JSON format
             JSONArray exerciseLogsArray = new JSONArray(exerciseLogs);
-            Log.d(TAG, "Loaded exercise logs: " + exerciseLogsArray.toString()); // Log loaded exercise logs
             for (int i = 0; i < exerciseLogsArray.length(); i++) {
+                // Get each exercise log entry
                 JSONObject exerciseLog = exerciseLogsArray.getJSONObject(i);
                 String logDate = exerciseLog.getString("date");
 
+                // If the exercise log date matches the current date, accumulate the time and calories
                 if (logDate.equals(currentDate)) {
                     totalWorkoutTime += exerciseLog.getInt("totalTime");
                     totalCaloriesBurnt += exerciseLog.getInt("totalCalories");
@@ -220,9 +220,63 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        // Update the UI elements
         exerciseTime.setText(String.format("Workout Time: %d mins", totalWorkoutTime));
         exerciseCalories.setText(String.format("Calories Burnt: %d kcal", totalCaloriesBurnt));
+    }
+
+    private void loadWeightData() {
+        // Retrieve shared preferences to get the weight logs
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        String weightLogs = preferences.getString("weightLogs", "[]");
+
+        // Create lists to hold the chart entries and labels
+        List<Entry> entries = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+
+        try {
+            // Parse the stored weight logs from JSON format
+            JSONArray weightLogsArray = new JSONArray(weightLogs);
+            for (int i = 0; i < weightLogsArray.length(); i++) {
+                // Get each weight log entry
+                JSONObject weightLog = weightLogsArray.getJSONObject(i);
+                String date = weightLog.getString("date"); // Get the date of the weight entry
+                double weight = weightLog.getDouble("weight"); // Get the weight value
+
+                // Add the weight entry as a chart data point
+                entries.add(new Entry(i, (float) weight));
+                // Add the date as a label for the X axis
+                labels.add(date);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Create a dataset with the entries for the line chart
+        LineDataSet dataSet = new LineDataSet(entries, "Weight");
+        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        // Create a LineData object with the dataset
+        LineData lineData = new LineData(dataSet);
+        // Set the data for the chart
+        weightChart.setData(lineData);
+        // Refresh the chart
+        weightChart.invalidate();
+        // Remove the description label from the chart
+        weightChart.getDescription().setEnabled(false);
+
+        // Configure the X axis
+        XAxis xAxis = weightChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setGranularity(1f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        // Configure the left Y axis
+        YAxis leftAxis = weightChart.getAxisLeft();
+        leftAxis.setGranularity(1f);
+
+        // Disable the right Y axis
+        weightChart.getAxisRight().setEnabled(false);
     }
 
     // FOR DEBUGGING

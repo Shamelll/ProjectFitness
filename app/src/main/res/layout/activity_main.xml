@@ -369,11 +369,11 @@
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
-                    <!-- Placeholder for graph -->
-                    <View
+                    <!-- LineChart for displaying the weight graph -->
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/weightChart"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:background="@color/gray"
+                        android:layout_height="250dp"
                         android:layout_below="@id/weightTracking"/>
 
                     <Button

@@ -16,8 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
+        gradlePluginPortal()
     }
 }
-
 rootProject.name = "ProjectFitness"
 include ':app'
